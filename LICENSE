@@ -1,0 +1,42 @@
+MIT License
+
+Copyright (c) 2026 <YOUR NAME>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Third-Party Components (NOT bundled)
+
+This repository contains **no third-party binaries**. `install.py` downloads the
+following packages from their upstream release pages at the user's request. They
+are not distributed by this project.
+
+| Package | License | Source |
+|---|---|---|
+| `omni_xpu_kernel` | Apache-2.0 | [wildersa/ComfyUI-Intel-Arc-XPU](https://github.com/wildersa/ComfyUI-Intel-Arc-XPU) |
+| `comfy_kitchen_xpu_runtime` | Apache-2.0 (inherited from `comfy-kitchen`) | [wildersa/ComfyUI-Intel-Arc-XPU](https://github.com/wildersa/ComfyUI-Intel-Arc-XPU) |
+| `comfy_aimdo_xpu_runtime` | **GPL-3.0** (inherited from `comfy-aimdo`) | [wildersa/ComfyUI-Intel-Arc-XPU](https://github.com/wildersa/ComfyUI-Intel-Arc-XPU) |
+| `comfy-aimdo` | **GPL-3.0** | [Comfy-Org/comfy-aimdo](https://github.com/Comfy-Org/comfy-aimdo) |
+| `comfy-kitchen` | Apache-2.0 | [Comfy-Org/comfy-kitchen](https://github.com/Comfy-Org/comfy-kitchen) |
+| ComfyUI | **GPL-3.0** | [Comfy-Org/ComfyUI](https://github.com/Comfy-Org/ComfyUI) |
+
+Note: ComfyUI itself is GPL-3.0, and `comfy-aimdo` is a required dependency of
+ComfyUI 0.45.x. Running this workflow does not trigger any GPL obligation —
+GPL requires source disclosure only when you *distribute* the software.

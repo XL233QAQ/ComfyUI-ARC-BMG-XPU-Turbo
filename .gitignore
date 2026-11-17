@@ -1,0 +1,35 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Logs and local artifacts
+*.log
+output/
+temp/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Local benchmark dumps (regenerate with tools/probe.py)
+benchmarks/raw/
+benchmarks/*.json
+!benchmarks/sample.json
+
+# Downloaded wheels (install.py fetches + verifies these; never commit)
+wheels/

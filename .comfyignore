@@ -1,0 +1,17 @@
+# development only
+docs/drafts/
+*.log
+*.tmp
+__pycache__/
+.venv/
+venv/
+
+# local measurements, not for distribution
+benchmarks/raw/
+
+# Downloaded wheels
+wheels/
+
+# publisher helpers, not part of the node package
+publish.ps1
+install.ps1
