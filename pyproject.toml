@@ -1,11 +1,15 @@
 [project]
 name = "comfyui-arc-bmg-xpu-turbo"
 description = "Qwen-Image 2.1 on Intel Arc Battlemage (B390/B580/B570/B770): 4x faster T2I, 158s -> 27s with 3 reference images, runs 2.0MP where stock OOMs."
-version = "1.0.0"
+version = "1.0.2"
 license = { file = "LICENSE" }
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
 dependencies = []
+classifiers = [
+    "Operating System :: Microsoft :: Windows",
+    "Environment :: GPU :: Intel Arc",
+]
 
 [project.urls]
 Repository = "https://github.com/XL233QAQ/ComfyUI-ARC-BMG-XPU-Turbo"
@@ -13,7 +17,7 @@ Documentation = "https://github.com/XL233QAQ/ComfyUI-ARC-BMG-XPU-Turbo#readme"
 "Bug Tracker" = "https://github.com/XL233QAQ/ComfyUI-ARC-BMG-XPU-Turbo/issues"
 
 [tool.comfy]
-PublisherId = "YOUR_PUBLISHER_ID"
+PublisherId = "xl233qaq"
 DisplayName = "ARC Bmg XPU Turbo"
 Icon = ""
 requires-comfyui = ">=0.45.0"
