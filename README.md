@@ -388,7 +388,7 @@ ComfyUI 主进程里会自动关（`comfy/quant_ops.py:41`），不用管。
 ComfyUI-ARC-BMG-XPU-Turbo/
 ├── install.ps1                                  # 一键安装入口（不需要 git）
 ├── install.py                                   # 真正的安装逻辑（597 行）
-├── publish.ps1                                  # 上传到 GitHub（不需要 git）
+├── publish.ps1                                  # 维护者本地发布辅助（可删）
 ├── pyproject.toml                               # Comfy Registry 元数据
 ├── LICENSE                                      # MIT + 第三方组件清单
 ├── README.md                                    # 本文件
@@ -402,7 +402,7 @@ ComfyUI-ARC-BMG-XPU-Turbo/
 
 ---
 
-## 已经发布到哪了
+## 在哪能找到
 
 | 位置 | 地址 | 状态 |
 |---|---|---|
@@ -410,89 +410,6 @@ ComfyUI-ARC-BMG-XPU-Turbo/
 | Comfy Registry | https://registry.comfy.org/nodes/comfyui-arc-bmg-xpu-turbo | ✅ 已提交 `1.0.2`（`NodeVersionStatusPending`，等官方扫描） |
 
 装好 ComfyUI-Manager 后可以在 Manager 里搜 `ARC Bmg XPU Turbo` 或 `arc-bmg-xpu-turbo`。
-
----
-
-## 怎么自己发一份（fork 之后想换个名字/仓库）
-
-本仓库自带 `publish.ps1`，**不需要 git、不需要 gh CLI**，只走 GitHub REST API。
-`XL233QAQ` 占位符会在上传前自动替换成你的真实用户名。
-
-### 第一步：拿一个 token
-
-1. 打开 https://github.com/settings/tokens/new
-2. **Note** 填 `ARC BMG XPU Turbo`，**Expiration** 选 7 天就够
-3. **Scope 勾上整个 `repo` 分组**（这是唯一必须勾的）
-4. 点 Generate，复制那串 `ghp_...`（**只显示一次，关掉就看不到了**）
-
-### 第二步：预演（不需要 token，不联网）
-
-```powershell
-cd C:\AI_omni\ComfyUI-ARC-BMG-XPU-Turbo
-powershell -ExecutionPolicy Bypass -File publish.ps1 -DryRun
-```
-
-会打印将要上传的 11 个文件清单，让你确认没有漏东西、也没有混进不该传的。
-
-### 第三步：正式上传
-
-```powershell
-powershell -ExecutionPolicy Bypass -File publish.ps1 -Token ghp_你的token
-```
-
-脚本会依次做：
-
-1. 用 token 调 `/user` 确认身份，拿到你的用户名
-2. **把 `README.md` / `install.ps1` / `pyproject.toml` 里的 `XL233QAQ` 替换成你的用户名**
-3. 仓库不存在就在你账号下创建（自动带描述）
-4. 逐个文件通过 contents API 上传
-5. 设置仓库描述 + 10 个 topics（`comfyui` / `intel-arc` / `battlemage` / `xpu` / `int8` …）
-
-**之后改了文件要再同步**，加 `-Update`：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File publish.ps1 -Token ghp_你的token -Update
-```
-
-### 可选参数
-
-| 参数 | 作用 |
-|---|---|
-| `-DryRun` | 只列文件，不联网不上传（**不需要 token**） |
-| `-RepoName <name>` | 换仓库名（默认 `ComfyUI-ARC-BMG-XPU-Turbo`） |
-| `-Private` | 建成私有仓库 |
-| `-Update` | 仓库已存在，同步文件 |
-
-脚本自动跳过 `wheels/`、`.git/`、`__pycache__/`、`*.log`、`*.zip`、`*.whl` 等不该上传的东西。
-
-### 上 Comfy Registry（让用户在 ComfyUI-Manager 里能搜到）
-
-本项目已经发布过了，`[tool.comfy] PublisherId = "xl233qaq"` 已填好，直接：
-
-```powershell
-pip install comfy-cli
-comfy node publish --token <你的 PAT>
-```
-
-PAT 在 https://registry.comfy.org 的账号设置里生成，形如 `pat-xxxxxxxx-...`。
-**每次发新版本要先改 `pyproject.toml` 的 `version`** —— 同一个版本号不能发两次（会返回 `The node version already exists`）。
-
-两个坑：
-
-1. `supported_os` / `supported_accelerators` **不是自由填的**，要从 `classifiers` 推：
-   ```toml
-   classifiers = [
-       "Operating System :: Microsoft :: Windows",
-       "Environment :: GPU :: Intel Arc",
-   ]
-   ```
-   合法值只有 `Operating System :: Microsoft|POSIX|MacOS|OS Independent` 和
-   `Environment :: GPU :: NVIDIA CUDA|AMD ROCm|Intel Arc`、`NPU :: Huawei Ascend`、`GPU :: Apple Metal`。
-   写错了整条发布请求会 400（`supported os is invalid`），**而且 node 会被创建出来但版本缺失**。
-2. `comfy node publish` 在没有 git 的机器上会打印
-   `Warning: Not in a git repository or git not installed. Zipping all files.`
-   然后按 `.comfyignore` 打包**整个目录** —— 所以 `.comfyignore` 里必须挡住
-   `wheels/`、`.ruff_cache/`、`__pycache__/`、`*.log` 这些，否则 27 MB 的 wheel 会被打进 zip。
 
 ---
 
